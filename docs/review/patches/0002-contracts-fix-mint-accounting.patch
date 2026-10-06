@@ -1,0 +1,65 @@
+diff --git a/ton-contracts/contracts/GameNftCollection.tact b/ton-contracts/contracts/GameNftCollection.tact
+index 3cacb09..9e03f40 100644
+--- a/ton-contracts/contracts/GameNftCollection.tact
++++ b/ton-contracts/contracts/GameNftCollection.tact
+@@ -37,18 +37,26 @@ contract GameNftCollection {
+         self.nextItemIndex += 1;
+ 
+         let initNFTBody: Cell = InitNFTBody { owner: sender(), content: emptyCell() }.toCell();
+-        deployNFTItem(self.commonCode, itemIndex, ItemDeployAmount, initNFTBody, self.commonData);
++        // +SendBounceIfActionFail: if the item deposit can't be paid, the whole
++        // mint bounces back to the buyer instead of the TON being kept.
++        deploy(DeployParameters {
++            value: ItemDeployAmount,
++            body: initNFTBody,
++            init: StateInit { code: self.commonCode, data: self.commonData.storeUint(itemIndex, 64).endCell() },
++            mode: SendPayFwdFeesSeparately | SendBounceIfActionFail,
++        });
+ 
+-        // Sweep whatever's left of this message's value (MintPrice minus the
+-        // item's deploy reserve minus gas already spent) to the collection
+-        // owner as sale proceeds. SendRemainingValue only ever draws from the
+-        // inbound message, never the collection's own storage balance.
++        // Keep a fixed storage floor in the collection and sweep everything
++        // above it (MintPrice - item deposit - fees) to the owner. ReserveAtMost
++        // never fails, and SendIgnoreErrors keeps a failed sweep from aborting
++        // an otherwise successful mint.
++        nativeReserve(minTonsForStorage, ReserveAtMost);
+         message(MessageParameters {
+             bounce: false,
+             to: self.owner,
+             value: 0,
+             body: beginCell().endCell(),
+-            mode: SendRemainingValue,
++            mode: SendRemainingBalance | SendIgnoreErrors,
+         });
+     }
+ 
+diff --git a/ton-contracts/tests/GameNftCollection.spec.ts b/ton-contracts/tests/GameNftCollection.spec.ts
+index bc783e8..1c7edeb 100644
+--- a/ton-contracts/tests/GameNftCollection.spec.ts
++++ b/ton-contracts/tests/GameNftCollection.spec.ts
+@@ -81,6 +81,23 @@ describe('GameNftCollection', () => {
+         expect(data.nextItemIndex).toBe(1n);
+     });
+ 
++    it('keeps the collection balance stable and mints for every buyer', async () => {
++        const collectionBefore = (await blockchain.getContract(collection.address)).balance;
++        for (let i = 0; i < 10; i++) {
++            const b = await blockchain.treasury(`buyer-${i}`);
++            const r = await collection.send(b.getSender(), { value: MINT_PRICE }, { $$type: 'Mint', queryId: BigInt(i) });
++            expect(r.transactions).toHaveTransaction({
++                from: collection.address,
++                to: await collection.getGetNftAddressByIndex(BigInt(i)),
++                deploy: true,
++                success: true,
++            });
++        }
++        const collectionAfter = (await blockchain.getContract(collection.address)).balance;
++        expect(collectionAfter).toBeGreaterThanOrEqual(collectionBefore);
++        expect((await collection.getGetCollectionData()).nextItemIndex).toBe(10n);
++    });
++
+     it('rejects a mint below MintPrice', async () => {
+         const mintResult = await collection.send(
+             buyer.getSender(),

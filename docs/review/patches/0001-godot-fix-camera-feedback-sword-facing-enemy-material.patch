@@ -1,0 +1,81 @@
+diff --git a/scripts/Enemy.gd b/scripts/Enemy.gd
+index d6de4da..99923e0 100644
+--- a/scripts/Enemy.gd
++++ b/scripts/Enemy.gd
+@@ -10,7 +10,9 @@ extends CharacterBody3D
+ @export var rotation_speed := 8.0
+ 
+ @onready var mesh: MeshInstance3D = $MeshInstance3D
+-@onready var mesh_material: StandardMaterial3D = mesh.material_override
++# Duplicated per instance: the scene's material is shared by every Enemy, so
++# flashing it would flash all of them.
++@onready var mesh_material: StandardMaterial3D = mesh.material_override.duplicate()
+ 
+ var health: int
+ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+@@ -20,6 +22,7 @@ var player: Node3D
+ var attack_timer := 0.0
+ 
+ func _ready() -> void:
++	mesh.material_override = mesh_material
+ 	health = max_health
+ 	base_color = mesh_material.albedo_color
+ 	player = get_tree().get_first_node_in_group("player")
+@@ -66,7 +69,7 @@ func _process_ai(delta: float) -> void:
+ 			_attack_player()
+ 
+ 	if direction.length() > 0.01:
+-		var target_angle := atan2(direction.x, direction.z)
++		var target_angle := atan2(-direction.x, -direction.z)
+ 		rotation.y = lerp_angle(rotation.y, target_angle, rotation_speed * delta)
+ 
+ func _attack_player() -> void:
+@@ -75,6 +78,8 @@ func _attack_player() -> void:
+ 		player.take_damage(attack_damage)
+ 
+ func take_damage(amount: int) -> void:
++	if health <= 0:
++		return
+ 	health -= amount
+ 	flash_timer = 0.15
+ 	mesh_material.albedo_color = Color(1, 1, 1)
+diff --git a/scripts/Player.gd b/scripts/Player.gd
+index eb7f84c..5f6a2db 100644
+--- a/scripts/Player.gd
++++ b/scripts/Player.gd
+@@ -24,11 +24,17 @@ var attack_timer := 0.0
+ var cooldown_timer := 0.0
+ var health: int
+ var spawn_position: Vector3
++var _camera_offset: Vector3
+ 
+ signal health_changed(current: int, max: int)
+ signal died
+ 
+ func _ready() -> void:
++	# The camera rig must not inherit the body's yaw: movement is computed from
++	# the camera basis, so a rotating parent feeds back into the input direction.
++	_camera_offset = camera_pivot.position
++	camera_pivot.top_level = true
++	camera_pivot.global_position = global_position + _camera_offset
+ 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+ 	sword_collision.disabled = true
+ 	sword_hitbox.body_entered.connect(_on_sword_hit)
+@@ -64,7 +70,8 @@ func _physics_process(delta: float) -> void:
+ 	if direction.length() > 0.01 and not is_attacking:
+ 		velocity.x = direction.x * SPEED
+ 		velocity.z = direction.z * SPEED
+-		var target_angle := atan2(direction.x, direction.z)
++		# Godot's forward axis is -Z (SwordHitbox sits at z = -1), so face -Z along the move.
++		var target_angle := atan2(-direction.x, -direction.z)
+ 		rotation.y = lerp_angle(rotation.y, target_angle, ROTATION_SPEED * delta)
+ 	else:
+ 		velocity.x = move_toward(velocity.x, 0.0, SPEED * delta * 4.0)
+@@ -82,6 +89,7 @@ func _physics_process(delta: float) -> void:
+ 		cooldown_timer -= delta
+ 
+ 	move_and_slide()
++	camera_pivot.global_position = global_position + _camera_offset
+ 
+ func _start_attack() -> void:
+ 	is_attacking = true

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/actors/player.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hero.png" id="2_hero"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sword.png" id="3_sword"]
+[ext_resource type="Texture2D" path="res://assets/sprites/items.png" id="4_items"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(10, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(10, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sword"]
+size = Vector2(6, 14)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
+motion_mode = 1
+script = ExtResource("1_script")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_hero")
+hframes = 6
+vframes = 2
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 48
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="Sword" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite2D" parent="Sword"]
+texture = ExtResource("3_sword")
+
+[node name="Hitbox" type="Area2D" parent="Sword"]
+collision_layer = 8
+collision_mask = 16
+monitoring = false
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Sword/Hitbox"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_sword")
+
+[node name="HeldItem" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -14)
+texture = ExtResource("4_items")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)

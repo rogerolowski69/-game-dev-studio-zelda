@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/objects/npc.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sage.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(14, 12)
+
+[node name="Sage" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_script")
+lines = "THE WILDS ARE NO PLACE FOR BARE HANDS. TAKE THIS BLADE!"
+lines_after = "THE SUNSTONE RESTS BEHIND THE SHRINE GATE. ITS KEY SLEEPS AMONG THE OLD GRAVES."
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_body")

@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/objects/locked_gate.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/gate.png" id="2_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(32, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_touch"]
+size = Vector2(36, 22)
+
+[node name="LockedGate" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_script")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="Touch" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Touch"]
+shape = SubResource("RectangleShape2D_touch")

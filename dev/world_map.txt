@@ -1,0 +1,58 @@
+# Glade Quest world map. Baked into scenes/world/world.tscn by dev/build_world.tscn.
+# Each room is 16x11 tiles; the overworld is 3x3 rooms, the cave is one room
+# placed at room (4,1), reachable only through its doorway.
+#
+# Terrain:  .  grass         "  flowers      S  sand          T  tree (solid)
+#           R  rock (solid)  M  cliff (solid) W  water (solid) C  cave doorway
+#           F  stone floor   X  stone wall    ^  statue        H  grave
+#           #  cave wall     :  cave floor
+# Markers (terrain underneath is inferred from the neighbours):
+#           P  hero start    s  slime         o  spitter       K  key (clear the room)
+#           G  locked gate   *  Sunstone      N  sage          f  fire
+#           w  sword         A  cave arrival  E  cave exit     @  overworld arrival
+[overworld]
+TTTTTTTTTTTTTTTTMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+TT..T....".TT..TM.MXXXXXXXXXXM.MM....MMM...MMMMM
+T..s...TT......TM..XF^FFFF^FX..MM..o......R..MMM
+T.TT.......s..TTT..XFFF**FFFX..TMM.....RR.....MM
+T...T..XXX.........XFFFFFFFFX.........R....o...M
+T......X^X.........XXXXGGXXXX......R.......R...M
+TT.."..X.X.T......."..SSSS.."..........MM......M
+T..T.........T.TT.....SSSS.....TM.R....MM...R..M
+T.....TT..s....TT..o..SSSS.....TM.....R........M
+TT.T..T....T..TTTT....SSSS....TTMM...........MMM
+TTTTTT....TTTTTTTTTTTTSSSSTTTTTTMMMMMM....MMMMMM
+TTTTTT....TTTTTTMMMMMM....MMMMMMMMMMMM....MMMMMM
+T.....SSSS.....TMMCMMM....MMMMMMM.....R.......MM
+T.WWWW.SS.."...TM.@...........MMM..o.....RR...MM
+TWWWWWW.S...s..TM.."......."...MM.R.......R..o.M
+TWWWWWWW.S............SSSS...........R........RM
+TWWWWWWW.SSSSSSSSSSSSSSSSSSSSSSS...s....RR.....M
+TWWWWWWW.S............SSSS..............RR...R.M
+TWWWWWW.S...s..TT..."..SS..."..TM.R..........R.M
+T.WWWW.SS......TT......SP..R...TM....s...R.....M
+T.....SSSS.....TTT..R..SS.....TTMM.R.........RMM
+TTTTTT....TTTTTTTTTTTT....TTTTTTMMMMMM....MMMMMM
+TTTTTT....TTTTTTTTTTTT....TTTTTTMMMMMM....MMMMMM
+T..T...........TT..."........".TM..............M
+T.s..TT..T..s..TT..............TM.H..H..H..H...M
+TT.......T.....TT..o.......R...TM..............M
+T...T.....TT.........................s....s....M
+T.T....s........SSSSSSSSSSSSSSSS.......K.......M
+T....TT....T....SSSSSSSSSSSSSSSS...H..o...H....M
+TT.......T...T.TRSSSoSSSSSSSoSSRM.....s........M
+T..T..s.....T..TRSSWWWSSSSWWWSSRM.H..H..H..H...M
+T.....T..T.....TWWWWWWWWWWWWWWWWM..............M
+TTTTTTTTTTTTTTTTWWWWWWWWWWWWWWWWMMMMMMMMMMMMMMMM
+[cave]
+################
+################
+##::::::::::::##
+##:::f::N::f::##
+##::::::::::::##
+##::::::w:::::##
+##::::::::::::##
+##::::::::::::##
+##::::::A:::::##
+#######:::######
+#######EEE######

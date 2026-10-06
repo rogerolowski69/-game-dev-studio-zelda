@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/world/world.tscn" id="2_world"]
+[ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialog_box.tscn" id="5_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/overlay.tscn" id="6_overlay"]
+
+[node name="Main" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_script")
+
+[node name="World" parent="." instance=ExtResource("2_world")]
+process_mode = 1
+
+[node name="Actors" type="Node2D" parent="."]
+process_mode = 1
+y_sort_enabled = true
+
+[node name="Player" parent="Actors" instance=ExtResource("3_player")]
+
+[node name="RoomActors" type="Node2D" parent="Actors"]
+y_sort_enabled = true
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]
+
+[node name="DialogBox" parent="." instance=ExtResource("5_dialog")]
+
+[node name="Overlay" parent="." instance=ExtResource("6_overlay")]

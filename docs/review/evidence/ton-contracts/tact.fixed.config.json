@@ -1,0 +1,1 @@
+{ "projects": [ { "name": "GameNftCollectionFixed", "path": "./contracts_fixed/GameNftCollection.tact", "output": "./build/GameNftCollectionFixed", "options": { "debug": true } } ] }

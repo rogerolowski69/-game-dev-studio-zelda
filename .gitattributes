@@ -1,0 +1,4 @@
+# Normalize EOL for all text files (Godot recommends LF)
+* text=auto eol=lf
+*.png binary
+*.wav binary

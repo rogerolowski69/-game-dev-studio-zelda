@@ -1,0 +1,15 @@
+# Godot 4 cache (regenerated on import)
+.godot/
+/android/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+
+# Linters
+.ruff_cache/

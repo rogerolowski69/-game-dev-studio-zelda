@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/objects/warp.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_warp"]
+size = Vector2(14, 14)
+
+[node name="Warp" type="Area2D"]
+collision_layer = 128
+collision_mask = 2
+monitorable = false
+script = ExtResource("1_script")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_warp")

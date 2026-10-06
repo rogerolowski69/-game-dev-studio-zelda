@@ -1,0 +1,317 @@
+{
+  "columns": 8,
+  "texture": "res://assets/tiles/tiles.png",
+  "tile_size": 16,
+  "tiles": {
+    "cave_entrance": {
+      "atlas": [
+        1,
+        2
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "cave_floor": {
+      "atlas": [
+        7,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "cave_wall": {
+      "atlas": [
+        6,
+        1
+      ],
+      "shape": "full",
+      "solid": true
+    },
+    "cliff": {
+      "atlas": [
+        7,
+        1
+      ],
+      "shape": "full",
+      "solid": true
+    },
+    "cliff_face": {
+      "atlas": [
+        0,
+        2
+      ],
+      "shape": "full",
+      "solid": true
+    },
+    "flowers": {
+      "atlas": [
+        3,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "grass_0": {
+      "atlas": [
+        0,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "grass_1": {
+      "atlas": [
+        1,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "grass_2": {
+      "atlas": [
+        2,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "grave": {
+      "atlas": [
+        4,
+        1
+      ],
+      "shape": "chamfer",
+      "solid": true
+    },
+    "rock": {
+      "atlas": [
+        2,
+        1
+      ],
+      "shape": "chamfer",
+      "solid": true
+    },
+    "sand_0": {
+      "atlas": [
+        4,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "sand_1": {
+      "atlas": [
+        5,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "statue": {
+      "atlas": [
+        3,
+        1
+      ],
+      "shape": "chamfer",
+      "solid": true
+    },
+    "stone_floor": {
+      "atlas": [
+        6,
+        0
+      ],
+      "shape": null,
+      "solid": false
+    },
+    "stone_wall": {
+      "atlas": [
+        5,
+        1
+      ],
+      "shape": "full",
+      "solid": true
+    },
+    "tree_0": {
+      "atlas": [
+        0,
+        1
+      ],
+      "shape": "chamfer",
+      "solid": true
+    },
+    "tree_1": {
+      "atlas": [
+        1,
+        1
+      ],
+      "shape": "chamfer",
+      "solid": true
+    },
+    "water_0": {
+      "atlas": [
+        0,
+        3
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_1": {
+      "atlas": [
+        2,
+        3
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_10": {
+      "atlas": [
+        4,
+        5
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_11": {
+      "atlas": [
+        6,
+        5
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_12": {
+      "atlas": [
+        0,
+        6
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_13": {
+      "atlas": [
+        2,
+        6
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_14": {
+      "atlas": [
+        4,
+        6
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_15": {
+      "atlas": [
+        6,
+        6
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_2": {
+      "atlas": [
+        4,
+        3
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_3": {
+      "atlas": [
+        6,
+        3
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_4": {
+      "atlas": [
+        0,
+        4
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_5": {
+      "atlas": [
+        2,
+        4
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_6": {
+      "atlas": [
+        4,
+        4
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_7": {
+      "atlas": [
+        6,
+        4
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_8": {
+      "atlas": [
+        0,
+        5
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    },
+    "water_9": {
+      "atlas": [
+        2,
+        5
+      ],
+      "frame_duration": 0.7,
+      "frames": 2,
+      "shape": "full",
+      "solid": true
+    }
+  },
+  "water_mask_bits": {
+    "E": 2,
+    "N": 1,
+    "S": 4,
+    "W": 8
+  }
+}
